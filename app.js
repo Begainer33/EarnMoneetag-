@@ -156,27 +156,26 @@ showMonetagAd();
 
 redeemBtn.addEventListener(
 "click",
-()=>{
+async ()=>{
 
-if(coins<50000){
+if(coins < 50000){
 
 document.getElementById(
 "redeemResult"
-).innerText=
+).innerText =
 "❌ Need minimum 50000 coins";
 
 return;
 
 }
 
-const uid=
-prompt(
+const uid = prompt(
 "Enter Binance UID"
 );
 
-if(!uid)return;
+if(!uid) return;
 
-coins-=50000;
+coins -= 50000;
 
 localStorage.setItem(
 "coins",
@@ -185,13 +184,42 @@ coins
 
 updateUI();
 
+const redeemData = {
+
+uid: uid,
+coins: 50000,
+userId: tg.initDataUnsafe.user.id,
+username: tg.initDataUnsafe.user.username || "",
+status: "pending",
+createdAt: Date.now()
+
+};
+
+try{
+
+const requestId =
+"redeem_" + Date.now();
+
+localStorage.setItem(
+requestId,
+JSON.stringify(redeemData)
+);
+
 document.getElementById(
 "redeemResult"
-).innerText=
+).innerText =
 "✅ Redeem request submitted";
 
+}catch(err){
+
+document.getElementById(
+"redeemResult"
+).innerText =
+"❌ Error";
+
 }
-);
+
+});
 
 inviteBtn.addEventListener(
 "click",
