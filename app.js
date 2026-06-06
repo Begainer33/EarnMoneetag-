@@ -104,3 +104,24 @@ tg.openTelegramLink(
 );
 
 });
+
+const profileBtn =
+document.getElementById("profileBtn");
+
+const profileData =
+document.getElementById("profileData");
+
+profileBtn.addEventListener("click",()=>{
+
+const user =
+tg.initDataUnsafe.user;
+
+profileData.innerText=
+`
+ID: ${user.id}
+Name: ${user.first_name}
+Username: @${user.username || "none"}
+Coins: ${coins}
+`;
+
+});
