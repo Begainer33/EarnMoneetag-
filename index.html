@@ -1,8 +1,10 @@
 <!DOCTYPE html>
 <html>
+
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
+
 <title>EarnMoneetag</title>
 
 <script src="https://telegram.org/js/telegram-web-app.js"></script>
@@ -11,7 +13,7 @@
 
 body{
 background:#1f1f1f;
-font-family:Arial;
+font-family:Arial,sans-serif;
 color:white;
 padding:20px;
 font-weight:bold;
@@ -24,6 +26,10 @@ border-radius:20px;
 text-align:center;
 }
 
+h2{
+font-size:28px;
+}
+
 button{
 width:100%;
 padding:14px;
@@ -32,6 +38,7 @@ font-weight:bold;
 margin-top:10px;
 border:none;
 border-radius:12px;
+cursor:pointer;
 }
 
 #coins{
@@ -42,90 +49,62 @@ color:gold;
 color:#00ff99;
 }
 
+#result{
+margin-top:20px;
+font-size:20px;
+color:#00ccff;
+}
+
+#redeemResult{
+margin-top:15px;
+}
+
 </style>
 
-
-<script src='//libtl.com/sdk.js' data-zone='11108341' data-sdk='show_11108341'></script>
-
-    
 </head>
+
+<body>
 
 <div class="card">
 
 <h2>🎰 EarnMoneetag</h2>
 
-<p>💰 Coins: <span id="coins">0</span></p>
+<p>
+💰 Coins:
+<span id="coins">0</span>
+</p>
 
-<p>🎯 Spins Left: <span id="spins">30</span></p>
+<p>
+🎯 Spins Left:
+<span id="spins">30</span>
+</p>
 
-<button id="spinBtn">🎰 Spin</button>
-
-<br><br>
-
-<button id="redeemBtn">💸 Redeem</button>
-
-<br><br>
-
-<button id="inviteBtn">👥 Invite</button>
-    
-<br><br>
-
-<button id="profileBtn">
-👤 Profile
+<button id="spinBtn">
+🎰 Spin
 </button>
 
-<p id="profileData"></p>
-    
-<p id="result"></p>
-
-<p id="redeemResult"></p>
-
-</div>
-
-<div id="ad-container"></div>
-
-<script>
-
-// Rewarded interstitial
-
-show_11108341().then(() => {
-    // You need to add your user reward function here, which will be executed after the user watches the ad.
-    // For more details, please refer to the detailed instructions.
-    alert('You have seen an ad!');
-})
-
-        // Rewarded Popup
-
-show_11108341('pop').then(() => {
-    // user watch ad till the end or close it in interstitial format
-    // your code to reward user for rewarded format
-}).catch(e => {
-    // user get error during playing ad
-    // do nothing or whatever you want
-})
-    
-</script>
-
-    <script>
-        
-// Rewarded Popup
-
-show_11108341('pop').then(() => {
-    // user watch ad till the end or close it in interstitial format
-    // your code to reward user for rewarded format
-}).catch(e => {
-    // user get error during playing ad
-    // do nothing or whatever you want
-})
-
-    </script>
-    <br><br>
+<button id="redeemBtn">
+💸 Redeem
+</button>
 
 <button id="inviteBtn">
 👥 Invite Friends
 </button>
 
+<button id="profileBtn">
+👤 Profile
+</button>
+
 <p id="result"></p>
+
+<p id="redeemResult"></p>
+
+<p id="profileData"></p>
+
+</div>
+
+<!-- Monetag main script এখানে তোমার dashboard-এর actual script বসাবে -->
+<script src="YOUR_MONETAG_SCRIPT"></script>
 
 <script src="app.js"></script>
 
