@@ -3,51 +3,34 @@ const tg = window.Telegram.WebApp;
 tg.ready();
 tg.expand();
 
-let coins=0;
-let spins=30;
+let coins = 0;
+let spins = 30;
 
-const rewards=[
-5,
-10,
-20,
-50,
-100,
-250,
-500,
-1000
-];
+const rewards = [5,10,20,50,100,250,500,1000];
 
-document
-.getElementById("spinBtn")
-.onclick=function(){
+const spinBtn = document.getElementById("spinBtn");
+const coinsEl = document.getElementById("coins");
+const spinsEl = document.getElementById("spins");
+const resultEl = document.getElementById("result");
 
-if(spins<=0){
+spinBtn.addEventListener("click", () => {
 
-alert("No spins left");
+    if(spins <= 0){
+        alert("No spins left");
+        return;
+    }
 
-return;
+    spins--;
 
-}
+    const reward =
+    rewards[Math.floor(Math.random()*rewards.length)];
 
-spins--;
+    coins += reward;
 
-const reward=
-rewards[
-Math.floor(
-Math.random()*
-rewards.length
-)
-];
+    coinsEl.innerText = coins;
+    spinsEl.innerText = spins;
 
-coins+=reward;
+    resultEl.innerText =
+    `🎉 You won ${reward} coins`;
 
-document.getElementById("coins").innerText=coins;
-
-document.getElementById("spins").innerText=spins;
-
-document
-.getElementById("result")
-innerText=
-"You won "+reward+" coins";
-
-}
+});
