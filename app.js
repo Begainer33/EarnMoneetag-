@@ -38,6 +38,32 @@ spinBtn.addEventListener("click", () => {
     localStorage.setItem("coins", coins);
     localStorage.setItem("spins", spins);
 
+
+    const today=
+new Date()
+.toDateString();
+
+const savedDate=
+localStorage.getItem(
+"lastDate"
+);
+
+if(savedDate!==today){
+
+spins=30;
+
+localStorage.setItem(
+"spins",
+30
+);
+
+localStorage.setItem(
+"lastDate",
+today
+);
+
+}
+
     // update UI
     coinsEl.innerText = coins;
     spinsEl.innerText = spins;
