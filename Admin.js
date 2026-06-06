@@ -1,3 +1,22 @@
+const ADMIN_ID = "7018419823";
+
+const tg = window.Telegram.WebApp;
+
+tg.ready();
+
+const user = tg.initDataUnsafe.user;
+
+if(String(user.id) !== ADMIN_ID){
+
+document.body.innerHTML = `
+<h2 style="color:red;text-align:center">
+❌ Access Denied
+</h2>
+`;
+
+throw new Error("Unauthorized");
+
+}
 import { db } from "./firebase.js";
 
 import {
