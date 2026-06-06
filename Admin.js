@@ -1,25 +1,33 @@
+import { db } from "./firebase.js";
+
+import {
+collection,
+getDocs,
+doc,
+updateDoc
+}
+from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+
 const container =
 document.getElementById(
 "redeems"
 );
 
-function loadRequests(){
+async function loadRequests(){
 
 container.innerHTML="";
 
-for(let key in localStorage){
-
-if(key.startsWith("redeem_")){
-
-const data=
-JSON.parse(
-localStorage.getItem(key)
+const snapshot =
+await getDocs(
+collection(db,"redeems")
 );
+
+snapshot.forEach((item)=>{
+
+const data=item.data();
 
 const div=
-document.createElement(
-"div"
-);
+document.createElement("div");
 
 div.className="card";
 
@@ -31,11 +39,11 @@ div.innerHTML=`
 
 <p>Status: ${data.status}</p>
 
-<button onclick="approve('${key}')">
+<button onclick="approve('${item.id}')">
 ✅ Approve
 </button>
 
-<button onclick="reject('${key}')">
+<button onclick="reject('${item.id}')">
 ❌ Reject
 </button>
 
@@ -43,48 +51,36 @@ div.innerHTML=`
 
 container.appendChild(div);
 
-}
+});
 
 }
 
+window.approve =
+async(id)=>{
+
+await updateDoc(
+doc(db,"redeems",id),
+{
+status:"approved"
 }
-
-function approve(key){
-
-const data=
-JSON.parse(
-localStorage.getItem(key)
-);
-
-data.status=
-"approved";
-
-localStorage.setItem(
-key,
-JSON.stringify(data)
 );
 
 loadRequests();
 
+};
+
+window.reject =
+async(id)=>{
+
+await updateDoc(
+doc(db,"redeems",id),
+{
+status:"rejected"
 }
-
-function reject(key){
-
-const data=
-JSON.parse(
-localStorage.getItem(key)
-);
-
-data.status=
-"rejected";
-
-localStorage.setItem(
-key,
-JSON.stringify(data)
 );
 
 loadRequests();
 
-}
+};
 
 loadRequests();
