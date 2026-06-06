@@ -23,10 +23,6 @@ const rewards=[
 10,
 20,
 50,
-100,
-250,
-500,
-1000
 ];
 
 const spinBtn=
@@ -202,7 +198,7 @@ inviteBtn.addEventListener(
 ()=>{
 
 tg.openTelegramLink(
-"https://t.me/EarnMoneetagBot"
+"https://t.me/EarnMoneetag_bot"
 );
 
 }
