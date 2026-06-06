@@ -112,14 +112,14 @@ coinsEl.innerText=coins;
 });
 const inviteBtn=
 document.getElementById(
-"inviteBtn"
-);
+"inviteBtn.onclick=()=>{
 
-inviteBtn.onclick=()=>{
+const userId=
+tg.initDataUnsafe.user.id;
 
 const link=
-"https://t.me/EarnMoneetagBot";
+`https://t.me/EarnMoneetagBot?start=ref_${userId}`;
 
 tg.openTelegramLink(link);
 
-}
+};
