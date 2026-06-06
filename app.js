@@ -1,37 +1,57 @@
-import { db } from "./firebase.js";
-
-import {
-doc,
-getDoc,
-setDoc,
-updateDoc
-} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
-
 const tg = window.Telegram.WebApp;
 
 tg.ready();
 tg.expand();
 
-const user = tg.initDataUnsafe.user;
+let coins=0;
+let spins=30;
 
-const userId = String(user.id);
+const rewards=[
+5,
+10,
+20,
+50,
+100,
+250,
+500,
+1000
+];
 
-const rewards=[5,10,20,50,100,250,500,1000];
+document
+.getElementById("spinBtn")
+.onclick=function(){
 
-async function loadUser(){
+if(spins<=0){
 
-const ref=doc(db,"users",userId);
+alert("No spins left");
 
-const snap=await getDoc(ref);
+return;
 
-if(!snap.exists()){
+}
 
-await setDoc(ref,{
-coins:0,
-spinsLeft:30,
-username:user.username || "",
-firstName:user.first_name || ""
-});
+spins--;
 
-document.getElementById("coins").innerText=0;
-document.getElement
+const reward=
+rewards[
+Math.floor(
+Math.random()*
+rewards.length
+)
+];
+
+coins+=reward;
+
+document
+.getElementById("coins")
+innerText=coins;
+
+document
+.getElementById("spins")
+innerText=spins;
+
+document
+.getElementById("result")
+innerText=
+"You won "+reward+" coins";
+
+}
