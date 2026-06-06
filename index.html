@@ -1,16 +1,42 @@
 <!DOCTYPE html>
 <html>
 <head>
+<meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>EarnMoneetag</title>
+
 <script src="https://telegram.org/js/telegram-web-app.js"></script>
+
+<style>
+body{
+font-family:Arial;
+padding:20px;
+text-align:center;
+}
+
+button{
+padding:12px;
+font-size:18px;
+}
+</style>
+
 </head>
+
 <body>
+
 <h2>EarnMoneetag</h2>
-<div>Coins: <span id='coins'>0</span></div>
-<div>Spins Left: <span id='spins'>30</span></div>
-<button onclick='spin()'>🎯 Spin</button>
-<p id='result'></p>
-<script type="module" src="app.js"></script>
+
+<p>Coins: <span id="coins">0</span></p>
+
+<p>Spins Left: <span id="spins">30</span></p>
+
+<button id="spinBtn">
+🎰 Spin
+</button>
+
+<p id="result"></p>
+
+<script src="app.js"></script>
+
 </body>
 </html>
