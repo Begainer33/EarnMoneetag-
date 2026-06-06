@@ -281,3 +281,44 @@ console.log(
 }
 
 }
+
+document
+.getElementById("historyBtn")
+.addEventListener(
+"click",
+()=>{
+
+let historyText="";
+
+for(let key in localStorage){
+
+if(
+key.startsWith(
+"redeem_"
+)
+){
+
+const data=
+JSON.parse(
+localStorage.getItem(key)
+);
+
+historyText +=
+`UID:${data.uid}
+Status:${data.status}
+
+`;
+
+}
+
+}
+
+document
+.getElementById(
+"history"
+)
+.innerText=
+historyText ||
+"No history";
+
+});
