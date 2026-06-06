@@ -322,3 +322,22 @@ historyText ||
 "No history";
 
 });
+
+const watchAdBtn =
+document.getElementById(
+"watchAdBtn"
+);
+
+watchAdBtn.addEventListener(
+"click",
+()=>{
+
+const vastUrl =
+"https://www.videosprofitnetwork.com/watch.xml?key=55c05a8421f6ff355933fc9da838f0c8";
+
+// User action → open external link
+tg.openLink(vastUrl);
+
+}
+);
+
