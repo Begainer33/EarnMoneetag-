@@ -41,9 +41,7 @@ rewards.length
 
 coins+=reward;
 
-document
-.getElementById("coins")
-innerText=coins;
+document.getElementById("coins").innerText=coins;
 
 document
 .getElementById("spins")
