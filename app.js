@@ -46,3 +46,41 @@ spinBtn.addEventListener("click", () => {
     `🎉 You won ${reward} coins`;
 
 });
+
+
+const redeemBtn =
+document.getElementById("redeemBtn");
+
+redeemBtn.addEventListener("click",()=>{
+
+if(coins<50000){
+
+document.getElementById(
+"redeemResult"
+).innerText=
+"❌ Need 50000 coins minimum";
+
+return;
+
+}
+
+const uid=
+prompt("Enter Binance UID");
+
+if(!uid)return;
+
+document.getElementById(
+"redeemResult"
+).innerText=
+"✅ Redeem request submitted";
+
+coins-=50000;
+
+localStorage.setItem(
+"coins",
+coins
+);
+
+coinsEl.innerText=coins;
+
+});
