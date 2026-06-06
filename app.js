@@ -110,3 +110,16 @@ coins
 coinsEl.innerText=coins;
 
 });
+const inviteBtn=
+document.getElementById(
+"inviteBtn"
+);
+
+inviteBtn.onclick=()=>{
+
+const link=
+"https://t.me/EarnMoneetagBot";
+
+tg.openTelegramLink(link);
+
+}
