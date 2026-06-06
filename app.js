@@ -1,20 +1,7 @@
-import { db } from "./firebase.js";
-
-import {
-doc,
-getDoc,
-setDoc,
-updateDoc
-} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
-
 const tg = window.Telegram.WebApp;
 
 tg.ready();
 tg.expand();
-
-const user = tg.initDataUnsafe.user;
-
-const userId = String(user.id);
 
 let coins = 0;
 let spins = 30;
@@ -26,69 +13,36 @@ const coinsEl = document.getElementById("coins");
 const spinsEl = document.getElementById("spins");
 const resultEl = document.getElementById("result");
 
-async function loadUser(){
+// আগের saved data load
+coins = parseInt(localStorage.getItem("coins")) || 0;
+spins = parseInt(localStorage.getItem("spins")) || 30;
 
-const userRef = doc(db,"users",userId);
+coinsEl.innerText = coins;
+spinsEl.innerText = spins;
 
-const userSnap = await getDoc(userRef);
+spinBtn.addEventListener("click", () => {
 
-if(!userSnap.exists()){
+    if(spins <= 0){
+        alert("No spins left");
+        return;
+    }
 
-await setDoc(userRef,{
-coins:0,
-spinsLeft:30,
-username:user.username || "",
-firstName:user.first_name || ""
-});
+    spins--;
 
-coins=0;
-spins=30;
+    const reward =
+    rewards[Math.floor(Math.random()*rewards.length)];
 
-}else{
+    coins += reward;
 
-const data=userSnap.data();
+    // save
+    localStorage.setItem("coins", coins);
+    localStorage.setItem("spins", spins);
 
-coins=data.coins;
-spins=data.spinsLeft;
+    // update UI
+    coinsEl.innerText = coins;
+    spinsEl.innerText = spins;
 
-}
-
-coinsEl.innerText=coins;
-spinsEl.innerText=spins;
-
-}
-
-spinBtn.addEventListener("click",async()=>{
-
-if(spins<=0){
-
-alert("No spins left");
-
-return;
-
-}
-
-spins--;
-
-const reward=
-rewards[Math.floor(Math.random()*rewards.length)];
-
-coins+=reward;
-
-await updateDoc(
-doc(db,"users",userId),
-{
-coins:coins,
-spinsLeft:spins
-}
-);
-
-coinsEl.innerText=coins;
-spinsEl.innerText=spins;
-
-resultEl.innerText=
-`🎉 You won ${reward} coins`;
+    resultEl.innerText =
+    `🎉 You won ${reward} coins`;
 
 });
-
-loadUser();
