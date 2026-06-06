@@ -3,26 +3,44 @@ const tg = window.Telegram.WebApp;
 tg.ready();
 tg.expand();
 
-let coins = 0;
-let spins = 30;
+let coins = parseInt(localStorage.getItem("coins")) || 0;
+let spins = parseInt(localStorage.getItem("spins")) || 30;
 
 const rewards = [5,10,20,50,100,250,500,1000];
 
-const spinBtn = document.getElementById("spinBtn");
 const coinsEl = document.getElementById("coins");
 const spinsEl = document.getElementById("spins");
 const resultEl = document.getElementById("result");
 
-// আগের saved data load
-coins = parseInt(localStorage.getItem("coins")) || 0;
-spins = parseInt(localStorage.getItem("spins")) || 30;
+const spinBtn = document.getElementById("spinBtn");
+const redeemBtn = document.getElementById("redeemBtn");
+const inviteBtn = document.getElementById("inviteBtn");
 
-coinsEl.innerText = coins;
-spinsEl.innerText = spins;
+// UI update
+function updateUI(){
+    coinsEl.innerText = coins;
+    spinsEl.innerText = spins;
+}
 
-spinBtn.addEventListener("click", () => {
+updateUI();
 
-    if(spins <= 0){
+// Daily reset
+const today = new Date().toDateString();
+const lastDate = localStorage.getItem("lastDate");
+
+if(lastDate !== today){
+    spins = 30;
+
+    localStorage.setItem("spins", spins);
+    localStorage.setItem("lastDate", today);
+
+    updateUI();
+}
+
+// Spin
+spinBtn.addEventListener("click",()=>{
+
+    if(spins<=0){
         alert("No spins left");
         return;
     }
@@ -34,49 +52,16 @@ spinBtn.addEventListener("click", () => {
 
     coins += reward;
 
-    // save
     localStorage.setItem("coins", coins);
     localStorage.setItem("spins", spins);
 
-
-    const today=
-new Date()
-.toDateString();
-
-const savedDate=
-localStorage.getItem(
-"lastDate"
-);
-
-if(savedDate!==today){
-
-spins=30;
-
-localStorage.setItem(
-"spins",
-30
-);
-
-localStorage.setItem(
-"lastDate",
-today
-);
-
-}
-
-    // update UI
-    coinsEl.innerText = coins;
-    spinsEl.innerText = spins;
+    updateUI();
 
     resultEl.innerText =
     `🎉 You won ${reward} coins`;
-
 });
 
-
-const redeemBtn =
-document.getElementById("redeemBtn");
-
+// Redeem
 redeemBtn.addEventListener("click",()=>{
 
 if(coins<50000){
@@ -84,42 +69,38 @@ if(coins<50000){
 document.getElementById(
 "redeemResult"
 ).innerText=
-"❌ Need 50000 coins minimum";
+"❌ Need minimum 50000 coins";
 
 return;
-
 }
 
-const uid=
-prompt("Enter Binance UID");
+const uid=prompt(
+"Enter Binance UID"
+);
 
-if(!uid)return;
+if(!uid) return;
 
-document.getElementById(
-"redeemResult"
-).innerText=
-"✅ Redeem request submitted";
-
-coins-=50000;
+coins -= 50000;
 
 localStorage.setItem(
 "coins",
 coins
 );
 
-coinsEl.innerText=coins;
+updateUI();
+
+document.getElementById(
+"redeemResult"
+).innerText=
+"✅ Redeem request submitted";
 
 });
-const inviteBtn=
-document.getElementById(
-"inviteBtn.onclick=()=>{
 
-const userId=
-tg.initDataUnsafe.user.id;
+// Invite
+inviteBtn.addEventListener("click",()=>{
 
-const link=
-`https://t.me/EarnMoneetagBot?start=ref_${userId}`;
+tg.openTelegramLink(
+"https://t.me/EarnMoneetagBot"
+);
 
-tg.openTelegramLink(link);
-
-};
+});
