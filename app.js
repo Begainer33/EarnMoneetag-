@@ -61,6 +61,32 @@ spinBtn.addEventListener("click",()=>{
     `🎉 You won ${reward} coins`;
 });
 
+// Count spins
+spinCount++;
+
+localStorage.setItem(
+"spinCount",
+spinCount
+);
+
+// Every 2 spins try to show ad
+if(spinCount % 2 === 0){
+
+try{
+
+// Replace this function with your Monetag ad trigger
+showMonetagAd();
+
+}catch(e){
+
+console.log(
+"Ad not available"
+);
+
+}
+
+}
+
 // Redeem
 redeemBtn.addEventListener("click",()=>{
 
@@ -123,5 +149,46 @@ Name: ${user.first_name}
 Username: @${user.username || "none"}
 Coins: ${coins}
 `;
+// In-App Interstitial
 
+show_11108341({
+  type: 'inApp',
+  inAppSettings: {
+    frequency: 2,
+    capping: 0.1,
+    interval: 30,
+    timeout: 5,
+    everyPage: false
+  }
+})
+
+/*
+This value is decoded as follows:
+- show automatically 2 ads
+  within 0.1 hours (6 minutes)
+  with a 30-second interval between them
+  and a 5-second delay before the first one is shown.
+  The last digit, 0, means that the session will be saved when you navigate between pages.
+  If you set the last digit as 1, then at any transition between pages,
+  the session will be reset, and the ads will start again.
+*/
+
+
+// Rewarded Popup
+
+show_11108341('pop').then(() => {
+    // user watch ad till the end or close it in interstitial format
+    // your code to reward user for rewarded format
+}).catch(e => {
+    // user get error during playing ad
+    // do nothing or whatever you want
+})
+    
 });
+
+
+
+
+
+
+
