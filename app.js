@@ -1,116 +1,57 @@
-const wheel =
-document.getElementById(
-"wheel"
-);
-const tg=window.Telegram.WebApp;
+const tg = window.Telegram.WebApp;
 
 tg.ready();
-
 tg.expand();
 
-let coins=
-parseInt(
-localStorage.getItem("coins")
-)||0;
+let coins =
+parseInt(localStorage.getItem("coins")) || 0;
 
-let spins=
-parseInt(
-localStorage.getItem("spins")
-)||30;
-
-let spinCount=
-parseInt(
-localStorage.getItem("spinCount")
-)||0;
+let spins =
+parseInt(localStorage.getItem("spins")) || 30;
 
 const rewards=[
 5,10,20,50,100,250,500,1000
 ];
 
-const coinsEl=
-document.getElementById(
-"coins"
-);
+const wheel =
+document.getElementById("wheel");
 
-const spinsEl=
-document.getElementById(
-"spins"
-);
+const coinsEl =
+document.getElementById("coins");
 
-const resultEl=
-document.getElementById(
-"result"
-);
+const spinsEl =
+document.getElementById("spins");
+
+const resultEl =
+document.getElementById("result");
 
 function updateUI(){
 
-coinsEl.innerText=
-coins;
-
-spinsEl.innerText=
-spins;
-
-}
-
-const today=
-new Date()
-.toDateString();
-
-const savedDate=
-localStorage.getItem(
-"lastDate"
-);
-
-if(savedDate!==today){
-
-spins=30;
-
-localStorage.setItem(
-"spins",
-30
-);
-
-localStorage.setItem(
-"lastDate",
-today
-);
+coinsEl.innerText=coins;
+spinsEl.innerText=spins;
 
 }
 
 updateUI();
 
 document
-.getElementById(
-"spinBtn"
-)
+.getElementById("spinBtn")
 .onclick=()=>{
 
 if(spins<=0){
 
-alert(
-"No spins left"
-);
-
+alert("No spins left");
 return;
 
 }
 
-// wheel animation
-const wheel=
-document.getElementById(
-"wheel"
-);
-
 const randomDeg=
 3600+
-Math.floor(
-Math.random()*360
-);
+Math.floor(Math.random()*360);
 
 wheel.style.transform=
 `rotate(${randomDeg}deg)`;
 
-// delay reward until wheel ends
 setTimeout(()=>{
 
 spins--;
@@ -125,8 +66,6 @@ rewards.length
 
 coins+=reward;
 
-spinCount++;
-
 localStorage.setItem(
 "coins",
 coins
@@ -135,11 +74,6 @@ coins
 localStorage.setItem(
 "spins",
 spins
-);
-
-localStorage.setItem(
-"spinCount",
-spinCount
 );
 
 updateUI();
@@ -150,37 +84,25 @@ resultEl.innerText=
 },2000);
 
 };
-const reward=
-rewards[
-Math.floor(
-Math.random()*
-rewards.length
+
+document
+.getElementById(
+"watchBonusBtn"
 )
-];
+.onclick=()=>{
 
-coins+=reward;
-
-spinCount++;
+coins +=100;
 
 localStorage.setItem(
 "coins",
 coins
 );
 
-localStorage.setItem(
-"spins",
-spins
-);
-
-localStorage.setItem(
-"spinCount",
-spinCount
-);
-
 updateUI();
 
-resultEl.innerText=
-`🎉 Won ${reward} coins`;
+alert(
+"+100 bonus coins"
+);
 
 };
 
@@ -240,68 +162,5 @@ updateUI();
 alert(
 "Redeem submitted"
 );
-
-};
-
-document
-.getElementById(
-"inviteBtn"
-)
-.onclick=()=>{
-
-tg.openTelegramLink(
-"https://t.me/EarnMoneetag_bot"
-);
-
-};
-document
-.getElementById(
-"watchBonusBtn"
-)
-.onclick=()=>{
-
-try{
-
-show_11108341('pop')
-.then(()=>{
-
-coins += 100;
-
-localStorage.setItem(
-"coins",
-coins
-);
-
-updateUI();
-
-document
-.getElementById(
-"bonusResult"
-)
-.innerText=
-"✅ +100 bonus coins added";
-
-})
-.catch(()=>{
-
-document
-.getElementById(
-"bonusResult"
-)
-.innerText=
-"No ad available";
-
-});
-
-}catch(e){
-
-document
-.getElementById(
-"bonusResult"
-)
-.innerText=
-"Ad not ready";
-
-}
 
 };
