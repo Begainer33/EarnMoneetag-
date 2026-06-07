@@ -362,4 +362,27 @@ alert("Watch Ad button clicked");
 
 }
 );
+document.addEventListener("DOMContentLoaded",()=>{
 
+const watchAdBtn =
+document.getElementById(
+"watchAdBtn"
+);
+
+if(watchAdBtn){
+
+watchAdBtn.addEventListener(
+"click",
+()=>{
+
+alert(
+"Watch Ad button clicked"
+);
+
+// পরে এখানে ad code বসবে
+
+});
+
+}
+
+});
