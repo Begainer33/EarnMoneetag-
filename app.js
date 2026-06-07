@@ -351,3 +351,15 @@ tg.openLink(
 
 }
 );
+const watchAdBtn =
+document.getElementById("watchAdBtn");
+
+watchAdBtn.addEventListener(
+"click",
+()=>{
+
+alert("Watch Ad button clicked");
+
+}
+);
+
