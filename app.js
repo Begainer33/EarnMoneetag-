@@ -1,3 +1,7 @@
+const wheel =
+document.getElementById(
+"wheel"
+);
 const tg=window.Telegram.WebApp;
 
 tg.ready();
