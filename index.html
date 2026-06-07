@@ -10,7 +10,62 @@
 <script src="https://telegram.org/js/telegram-web-app.js"></script>
 
 <style>
+@keyframes glow{
 
+0%{
+box-shadow:0 0 10px #ff00cc;
+}
+
+50%{
+box-shadow:0 0 30px #00e5ff;
+}
+
+100%{
+box-shadow:0 0 10px #ff00cc;
+}
+
+}
+
+.card{
+
+animation:glow 3s infinite;
+
+}
+
+#wheel{
+
+animation:glow 2s infinite;
+
+}
+
+#result{
+
+margin-top:15px;
+
+font-size:20px;
+
+font-weight:bold;
+
+color:#00e5ff;
+
+text-shadow:
+0 0 10px #00e5ff;
+
+}
+
+button:hover{
+
+transform:scale(1.04);
+
+transition:.3s;
+
+}
+
+button:active{
+
+transform:scale(.96);
+
+}
   #wheel{
 
 width:120px;
@@ -64,6 +119,27 @@ conic-gradient(
 #ff0080
 );
 
+#levelBox{
+
+margin-top:20px;
+
+padding:12px;
+
+border-radius:15px;
+
+background:
+linear-gradient(
+45deg,
+#ff6a00,
+#ee0979
+);
+
+font-weight:bold;
+
+font-size:18px;
+
+}
+  
 box-shadow:
 0 0 20px rgba(255,255,255,.5);
 
@@ -359,7 +435,11 @@ atOptions = {
 </script>
 
 <script src="https://www.highperformanceformat.com/b7517d342a7f2bbd2b1c2cf8759f2448/invoke.js"></script>
+<div id="levelBox">
 
+⭐ Beginner
+
+</div>
 </div>
   
 <script src="app.js"></script>
