@@ -30,137 +30,34 @@ function updateUI(){
 coinsEl.innerText=coins;
 spinsEl.innerText=spins;
 
-}
+const levelBox=
+document.getElementById(
+"levelBox"
+);
 
-updateUI();
+if(coins>=100000){
 
-document
-.getElementById("spinBtn")
-.onclick=()=>{
-
-if(spins<=0){
-
-alert("No spins left");
-return;
+levelBox.innerText=
+"👑 Legend";
 
 }
+else if(coins>=50000){
 
-const randomDeg=
-3600+
-Math.floor(Math.random()*360);
+levelBox.innerText=
+"💎 Diamond";
 
-wheel.style.transform=
-`rotate(${randomDeg}deg)`;
+}
+else if(coins>=10000){
 
-setTimeout(()=>{
+levelBox.innerText=
+"🔥 Pro";
 
-spins--;
+}
+else{
 
-const reward=
-rewards[
-Math.floor(
-Math.random()*
-rewards.length
-)
-];
-
-coins+=reward;
-
-localStorage.setItem(
-"coins",
-coins
-);
-
-localStorage.setItem(
-"spins",
-spins
-);
-
-updateUI();
-
-resultEl.innerText=
-`🎉 Won ${reward} coins`;
-
-},2000);
-
-};
-
-document
-.getElementById(
-"watchBonusBtn"
-)
-.onclick=()=>{
-
-coins +=100;
-
-localStorage.setItem(
-"coins",
-coins
-);
-
-updateUI();
-
-alert(
-"+100 bonus coins"
-);
-
-};
-
-document
-.getElementById(
-"profileBtn"
-)
-.onclick=()=>{
-
-const user=
-tg.initDataUnsafe.user;
-
-document
-.getElementById(
-"profileData"
-)
-.innerText=
-
-`👤 ${user.first_name}
-ID:${user.id}
-Coins:${coins}`;
-
-};
-
-document
-.getElementById(
-"redeemBtn"
-)
-.onclick=()=>{
-
-if(coins<50000){
-
-alert(
-"Need 50000 coins"
-);
-
-return;
+levelBox.innerText=
+"⭐ Beginner";
 
 }
 
-const uid=
-prompt(
-"Enter Binance UID"
-);
-
-if(!uid)return;
-
-coins-=50000;
-
-localStorage.setItem(
-"coins",
-coins
-);
-
-updateUI();
-
-alert(
-"Redeem submitted"
-);
-
-};
+}
