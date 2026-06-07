@@ -83,7 +83,6 @@ document
 .getElementById(
 "spinBtn"
 )
-  
 .onclick=()=>{
 
 if(spins<=0){
@@ -96,16 +95,61 @@ return;
 
 }
 
-spins--;
-  
-const randomDeg =
-3600 +
+// wheel animation
+const wheel=
+document.getElementById(
+"wheel"
+);
+
+const randomDeg=
+3600+
 Math.floor(
 Math.random()*360
 );
 
-wheel.style.transform =
+wheel.style.transform=
 `rotate(${randomDeg}deg)`;
+
+// delay reward until wheel ends
+setTimeout(()=>{
+
+spins--;
+
+const reward=
+rewards[
+Math.floor(
+Math.random()*
+rewards.length
+)
+];
+
+coins+=reward;
+
+spinCount++;
+
+localStorage.setItem(
+"coins",
+coins
+);
+
+localStorage.setItem(
+"spins",
+spins
+);
+
+localStorage.setItem(
+"spinCount",
+spinCount
+);
+
+updateUI();
+
+resultEl.innerText=
+`🎉 Won ${reward} coins`;
+
+},2000);
+
+};
 const reward=
 rewards[
 Math.floor(
