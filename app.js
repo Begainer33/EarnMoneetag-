@@ -83,6 +83,14 @@ document
 .getElementById(
 "spinBtn"
 )
+  const randomDeg =
+3600 +
+Math.floor(
+Math.random()*360
+);
+
+wheel.style.transform =
+`rotate(${randomDeg}deg)`;
 .onclick=()=>{
 
 if(spins<=0){
