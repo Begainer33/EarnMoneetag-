@@ -1,49 +1,27 @@
-const tg = window.Telegram.WebApp;
+const tg=window.Telegram.WebApp;
 
 tg.ready();
+
 tg.expand();
 
-let coins =
+let coins=
 parseInt(
 localStorage.getItem("coins")
-) || 0;
+)||0;
 
-let spins =
+let spins=
 parseInt(
 localStorage.getItem("spins")
-) || 30;
+)||30;
 
-let spinCount =
+let spinCount=
 parseInt(
 localStorage.getItem("spinCount")
-) || 0;
+)||0;
 
 const rewards=[
-5,
-10,
-20,
-50,
+5,10,20,50,100,250,500,1000
 ];
-
-const spinBtn=
-document.getElementById(
-"spinBtn"
-);
-
-const redeemBtn=
-document.getElementById(
-"redeemBtn"
-);
-
-const inviteBtn=
-document.getElementById(
-"inviteBtn"
-);
-
-const profileBtn=
-document.getElementById(
-"profileBtn"
-);
 
 const coinsEl=
 document.getElementById(
@@ -62,22 +40,24 @@ document.getElementById(
 
 function updateUI(){
 
-coinsEl.innerText=coins;
-spinsEl.innerText=spins;
+coinsEl.innerText=
+coins;
+
+spinsEl.innerText=
+spins;
 
 }
 
-updateUI();
+const today=
+new Date()
+.toDateString();
 
-const today =
-new Date().toDateString();
-
-const lastDate =
+const savedDate=
 localStorage.getItem(
 "lastDate"
 );
 
-if(lastDate!==today){
+if(savedDate!==today){
 
 spins=30;
 
@@ -91,13 +71,15 @@ localStorage.setItem(
 today
 );
 
-updateUI();
-
 }
 
-spinBtn.addEventListener(
-"click",
-()=>{
+updateUI();
+
+document
+.getElementById(
+"spinBtn"
+)
+.onclick=()=>{
 
 if(spins<=0){
 
@@ -121,6 +103,8 @@ rewards.length
 
 coins+=reward;
 
+spinCount++;
+
 localStorage.setItem(
 "coins",
 coins
@@ -131,8 +115,6 @@ localStorage.setItem(
 spins
 );
 
-spinCount++;
-
 localStorage.setItem(
 "spinCount",
 spinCount
@@ -141,41 +123,55 @@ spinCount
 updateUI();
 
 resultEl.innerText=
-`🎉 You won ${reward} coins`;
+`🎉 Won ${reward} coins`;
 
-if(
-spinCount % 2 === 0
-){
+};
 
-showMonetagAd();
+document
+.getElementById(
+"profileBtn"
+)
+.onclick=()=>{
 
-}
+const user=
+tg.initDataUnsafe.user;
 
-}
+document
+.getElementById(
+"profileData"
+)
+.innerText=
+
+`👤 ${user.first_name}
+ID:${user.id}
+Coins:${coins}`;
+
+};
+
+document
+.getElementById(
+"redeemBtn"
+)
+.onclick=()=>{
+
+if(coins<50000){
+
+alert(
+"Need 50000 coins"
 );
-
-redeemBtn.addEventListener(
-"click",
-async ()=>{
-
-if(coins < 50000){
-
-document.getElementById(
-"redeemResult"
-).innerText =
-"❌ Need minimum 50000 coins";
 
 return;
 
 }
 
-const uid = prompt(
+const uid=
+prompt(
 "Enter Binance UID"
 );
 
-if(!uid) return;
+if(!uid)return;
 
-coins -= 50000;
+coins-=50000;
 
 localStorage.setItem(
 "coins",
@@ -184,205 +180,20 @@ coins
 
 updateUI();
 
-const redeemData = {
-
-uid: uid,
-coins: 50000,
-userId: tg.initDataUnsafe.user.id,
-username: tg.initDataUnsafe.user.username || "",
-status: "pending",
-createdAt: Date.now()
+alert(
+"Redeem submitted"
+);
 
 };
 
-try{
-
-const requestId =
-"redeem_" + Date.now();
-
-localStorage.setItem(
-requestId,
-JSON.stringify(redeemData)
-);
-
-document.getElementById(
-"redeemResult"
-).innerText =
-"✅ Redeem request submitted";
-
-}catch(err){
-
-document.getElementById(
-"redeemResult"
-).innerText =
-"❌ Error";
-
-}
-
-});
-
-inviteBtn.addEventListener(
-"click",
-()=>{
+document
+.getElementById(
+"inviteBtn"
+)
+.onclick=()=>{
 
 tg.openTelegramLink(
 "https://t.me/EarnMoneetag_bot"
 );
 
-}
-);
-
-profileBtn.addEventListener(
-"click",
-()=>{
-
-const user=
-tg.initDataUnsafe.user;
-
-document.getElementById(
-"profileData"
-).innerText=
-`
-ID: ${user.id}
-Name: ${user.first_name}
-Username: @${user.username || "none"}
-Coins: ${coins}
-`;
-
-}
-);
-
-function showMonetagAd(){
-
-try{
-
-show_11108341('pop')
-.then(()=>{
-
-console.log(
-"Ad closed"
-);
-
-})
-.catch(()=>{
-
-console.log(
-"No ad available"
-);
-
-});
-
-}catch(err){
-
-console.log(
-"Ad error"
-);
-
-}
-
-}
-
-document
-.getElementById("historyBtn")
-.addEventListener(
-"click",
-()=>{
-
-let historyText="";
-
-for(let key in localStorage){
-
-if(
-key.startsWith(
-"redeem_"
-)
-){
-
-const data=
-JSON.parse(
-localStorage.getItem(key)
-);
-
-historyText +=
-`UID:${data.uid}
-Status:${data.status}
-
-`;
-
-}
-
-}
-
-document
-.getElementById(
-"history"
-)
-.innerText=
-historyText ||
-"No history";
-
-});
-
-const watchAdBtn =
-document.getElementById(
-"watchAdBtn"
-);
-
-watchAdBtn.addEventListener(
-"click",
-()=>{
-
-const vastUrl =
-"https://www.videosprofitnetwork.com/watch.xml?key=55c05a8421f6ff355933fc9da838f0c8";
-
-// User action → open external link
-tg.openLink(vastUrl);
-
-}
-);
-
-watchAdBtn.addEventListener(
-"click",
-()=>{
-
-tg.openLink(
-"https://earn-moneetag-epbq.vercel.app/videoad.html"
-);
-
-}
-);
-const watchAdBtn =
-document.getElementById("watchAdBtn");
-
-watchAdBtn.addEventListener(
-"click",
-()=>{
-
-alert("Watch Ad button clicked");
-
-}
-);
-document.addEventListener("DOMContentLoaded",()=>{
-
-const watchAdBtn =
-document.getElementById(
-"watchAdBtn"
-);
-
-if(watchAdBtn){
-
-watchAdBtn.addEventListener(
-"click",
-()=>{
-
-alert(
-"Watch Ad button clicked"
-);
-
-// পরে এখানে ad code বসবে
-
-});
-
-}
-
-});
+};
