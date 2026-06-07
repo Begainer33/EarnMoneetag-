@@ -197,3 +197,54 @@ tg.openTelegramLink(
 );
 
 };
+document
+.getElementById(
+"watchBonusBtn"
+)
+.onclick=()=>{
+
+try{
+
+show_11108341('pop')
+.then(()=>{
+
+coins += 100;
+
+localStorage.setItem(
+"coins",
+coins
+);
+
+updateUI();
+
+document
+.getElementById(
+"bonusResult"
+)
+.innerText=
+"✅ +100 bonus coins added";
+
+})
+.catch(()=>{
+
+document
+.getElementById(
+"bonusResult"
+)
+.innerText=
+"No ad available";
+
+});
+
+}catch(e){
+
+document
+.getElementById(
+"bonusResult"
+)
+.innerText=
+"Ad not ready";
+
+}
+
+};
