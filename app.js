@@ -341,3 +341,13 @@ tg.openLink(vastUrl);
 }
 );
 
+watchAdBtn.addEventListener(
+"click",
+()=>{
+
+tg.openLink(
+"https://earn-moneetag-epbq.vercel.app/videoad.html"
+);
+
+}
+);
