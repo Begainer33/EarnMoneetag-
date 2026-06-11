@@ -41,3 +41,29 @@ window.submitWithdraw = () => {
 
   alert("Withdraw request submitted");
 };
+const watchAdBtn = document.getElementById("watchAdBtn");
+const adStatus = document.getElementById("adStatus");
+
+if (watchAdBtn) {
+
+    watchAdBtn.addEventListener("click", async () => {
+
+        adStatus.textContent = "Loading ad...";
+
+        try {
+
+            await show_11108341();
+
+            adStatus.textContent = "Advertisement completed.";
+
+        } catch (e) {
+
+            console.error(e);
+
+            adStatus.textContent = "Advertisement unavailable.";
+
+        }
+
+    });
+
+}
