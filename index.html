@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Earn Mini App</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="https://telegram.org/js/telegram-web-app.js"></script>
+</head>
+<body>
+  <div class="container">
+    <h1>Earn Mini App</h1>
+
+    <div class="card">
+      <h3>User</h3>
+      <p id="username">Loading...</p>
+    </div>
+
+    <div class="card">
+      <h3>Referral</h3>
+      <input id="refLink" readonly>
+      <button onclick="copyRef()">Copy Link</button>
+    </div>
+
+    <div class="card">
+      <h3>Withdraw Request</h3>
+      <input id="binance" placeholder="Binance Pay ID">
+      <button onclick="submitWithdraw()">Submit</button>
+    </div>
+
+    <div class="card">
+      <h3>Advertisement Area</h3>
+      <!-- Monetag code here according to Monetag docs -->
+    </div>
+  </div>
+
+  <script type="module" src="app.js"></script>
+</body>
+</html>
