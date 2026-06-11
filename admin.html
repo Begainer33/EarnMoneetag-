@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Admin</title>
+</head>
+<body>
+  <h1>Admin Panel</h1>
+  <div id="withdraws"></div>
+
+  <script type="module">
+    import { db } from "./firebase.js";
+    import {
+      ref,
+      onValue
+    } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
+
+    onValue(ref(db,"withdraws"), snap=>{
+      document.getElementById("withdraws").innerHTML =
+        JSON.stringify(snap.val(), null, 2);
+    });
+  </script>
+</body>
+</html>
